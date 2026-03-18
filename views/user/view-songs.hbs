@@ -1,0 +1,94 @@
+<div class="parent">
+    <section class="profile-section">
+        <h3 style="color:aliceblue;margin:20px;">{{#if user}}
+            Hi {{user.name}}
+            {{else}}
+            Account
+            {{/if }}
+        </h3>
+        <ul class="nav-ul">
+            <li class="nav-item">
+                <a class="nav-links active" aria-current="page" href="/">
+                    <img class="nav-links-img" src="\icons\search-alt.webp" alt="discover">Discover</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-links" href="/my-collection" id="collection">
+                    <img class="nav-links-img" src="\icons\heart.webp" alt="liked">My collection</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-links" href="#">
+                    <img class="nav-links-img" src="\icons\list-music.webp" alt="Playlist">Playlist</a>
+            </li>
+        </ul>
+    </section>
+    {{!-- album-section --}}
+    <section class="album-section">
+        <div class="banner"></div>
+        {{#each songs}}
+        <div class="col-md-3 ">
+            <div class="card ms-2 mb-5 albums" style="width: 12rem;">
+                <img src="/songs-images/{{this._id}}.png" class="card-img-top" alt="product-image">
+                <div class="card-body">
+                    <h6 class="card-title">{{this.Name}}</h6>
+                    <p class="card-text">{{this.Artist}}</p>
+                    <a href="#" class="play-btn" data-id="{{this._id}}" data-name="{{this.Name}}"
+                        data-artist="{{this.Artist}}" onclick="playSong(this); return false;">
+                        <span class="icon">▶</span>
+                    </a>
+                    <a href="/add-to-liked/{{this._id}}" class="like-btn"><img src="\icons\heart.webp"
+                            alt="like-img"></a>
+
+                    <button class="menu-btn"><img src="\icons\dots-vertical-rounded.webp" alt=""></button>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </section>
+    {{!-- my-collection-section --}}
+    {{#if myCollection}}
+    <section class="my-collection">
+        <h1 class="cllection-h1">💜My Collections</h1>
+        <div class="line"></div>
+        {{#each likedSongs}}
+        <div class="song-card">
+            <a href="#" class="play-btn-like" data-id="{{this._id}}" data-name="{{this.Name}}"
+                data-artist="{{this.Artist}}" onclick="playSong(this); return false;">
+                <span class="icon">▶</span>
+            </a>
+            <img class="like-img" src="/songs-images/{{this._id}}.png" alt="">
+            <h4 class="song-about song-name">{{this.Name}}</h4>
+            <h6 class="song-about artist-name">{{this.Artist}}</h6>
+        </div>
+        {{/each}}
+    </section>
+    {{/if}}
+    {{!-- right-section --}}
+    {{!-- playlist-section --}}
+    <section class="playlist">
+
+    </section>
+    {{!-- right-section --}}
+    <section class="right-section">
+        <h2 class="right-main-h2">Now playing</h2>
+        <div class="nowPlayImg"></div>
+        <h3 class="heading songName"></h3>
+        <h5 class="heading artist"></h5>
+    </section>
+    {{!-- bottom-section --}}
+    <section class="bottom-section">
+        <div class="time">
+            <span id="currentTime">0:00</span>
+            <input type="range" id="progress" value="0" step="1">
+            <span id="duration">0:00</span>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="contol-btn prev" onclick="prevSong()">⏮</button>
+            <button class="contol-btn play" id="playBtn">
+                <span id="bottomIcon">▶</span>
+            </button>
+            <button class="contol-btn pause" onclick="nextSong()">⏭</button>
+        </div>
+    </section>
+</div>

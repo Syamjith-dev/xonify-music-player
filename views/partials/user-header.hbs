@@ -1,0 +1,38 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #2a2a2a;">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <a class="navbar-brand" href="#" style="margin-left: 10px; font-size:20px;color:#fff;">Xonify</a>
+                
+
+                <form class="d-flex" style="margin-left: 450px;">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" 
+                    style="background:#000000;border:none;width:400px;color:#fff;">
+                    <button class="btn btn-success" type="submit">Search</button>
+                </form>
+
+                <div class="dropdown" style="margin-left:350px;">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        {{#if user}}
+                        {{user.name}}
+                        {{else}}
+                        Account
+                        {{/if }}
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        {{#if user}}
+                        <li><a class="dropdown-item" href="/logout">Log out</a></li>
+                        {{else}}
+                        <li><a class="dropdown-item" href="/login">Login</a></li>
+                        {{/if}}
+                    </ul>    
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

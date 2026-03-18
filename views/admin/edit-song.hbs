@@ -1,0 +1,24 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6" style="font-size: 20px; margin: 100px 25%;">
+                <h2 class="text-center">Edit products</h2>
+                <form action="/admin/edit-product" method="post" enctype="multipart/form-data">
+                    <label for="">Name</label>
+                    <input type="text" name="Name" class="form-control">
+
+                    <label for="">Artist</label>
+                    <input type="text" name="Category" class="form-control">
+
+                    <label for="">Image</label>
+                    <input type="file" name="Image" class="form-control">
+
+                    <label for="">Song source</label>
+                    <input type="file" name="Src" class="form-control">
+
+                    <button type="submit" class="btn btn-success mt-4">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
