@@ -2,8 +2,9 @@
   "name": "xonify",
   "version": "0.0.0",
   "private": true,
+  "type": "commonjs",
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "node bin/www"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
@@ -15,7 +16,12 @@
     "express-session": "^1.19.0",
     "http-errors": "~1.6.3",
     "mongodb": "^7.1.0",
-    "morgan": "^1.10.1",
+    "morgan": "^1.10.1"
+  },
+  "devDependencies": {
     "nodemon": "^3.1.14"
+  },
+  "engines": {
+    "node": ">=14"
   }
 }
