@@ -25,9 +25,20 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+const db = require('../config/connection'); // adjust path if needed
+
+db.connect((err) => {
+  if (err) {
+    console.log("MongoDB Connection Failed ❌", err);
+    process.exit(1);
+  } else {
+    console.log("MongoDB Connected ✅");
+
+    server.listen(port);
+    server.on('error', onError);
+    server.on('listening', onListening);
+  }
+});
 
 /**
  * Normalize a port into a number, string, or false.
