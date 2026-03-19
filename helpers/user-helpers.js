@@ -1,4 +1,4 @@
-var db = require('../config/conection')
+var db = require('../config/connection')
 var collection = require('../config/collection')
 const bcrypt = require('bcrypt')
 const { response } = require('express')

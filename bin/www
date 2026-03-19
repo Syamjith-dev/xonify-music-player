@@ -25,7 +25,7 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-const db = require('../config/connection'); // adjust path if needed
+const db = require('../config/connection.js') // adjust path if needed
 
 db.connect((err) => {
   if (err) {

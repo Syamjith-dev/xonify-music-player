@@ -1,4 +1,4 @@
-var db = require('../config/conection')
+var db = require('../config/connection')
 var collection = require('../config/collection')
 const { response } = require('express')
 var ObjectId = require('mongodb').ObjectId
