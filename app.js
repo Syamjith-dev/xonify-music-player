@@ -1,3 +1,5 @@
+const fileUpload = require('express-fileupload'); // ✅ മുകളിൽ വെക്കണം
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -7,12 +9,11 @@ const { engine } = require('express-handlebars');
 var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
 var db = require('./config/connection');
-const { log } = require('console');
+
 var app = express();
 var session = require('express-session')
-const fileUpload = require('express-fileupload');
 
-// view engine setup (THIS IS THE KEY)
+// view engine setup
 app.engine(
   'hbs',
   engine({
@@ -25,12 +26,19 @@ app.engine(
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(fileUpload());
+
+// ✅ ONLY THIS ONE (correct config)
+app.use(fileUpload({
+  useTempFiles: true,
+  tempFileDir: '/tmp/'
+}));
+
 app.use(session({secret:"secretKey",cookie:{maxAge:86400000}}))
 
 db.connect((err) =>{
@@ -39,6 +47,7 @@ db.connect((err) =>{
   else
     console.log("database connected")
 })
+
 app.use('/', userRouter);
 app.use('/admin', adminRouter);
 
@@ -54,13 +63,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-//file upload
-
-
-app.use(fileUpload({
-  useTempFiles: true,
-  tempFileDir: '/tmp/'
-}));
 
 module.exports = app;
