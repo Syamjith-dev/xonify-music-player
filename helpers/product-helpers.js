@@ -5,12 +5,11 @@ var ObjectId = require('mongodb').ObjectId
 
 module.exports = {
     addSongs: (songs, callback) => {
-        console.log(songs)
-
-        db.get().collection('songs').insertOne(songs).then((data) => {
-            console.log(data)
-            callback(data.insertedId)
-        })
+        db.get().collection(collection.PRODUCT_COLLECTION)
+            .insertOne(songs)
+            .then((data) => {
+                callback(data.insertedId)
+            })
     },
     getAllSongs: () => {
         return new Promise(async (resolve, reject) => {
@@ -32,7 +31,7 @@ module.exports = {
             }
         })
     },
-   playSong: (songId) =>{
-    
-   }
+    playSong: (songId) => {
+
+    }
 }

@@ -55,4 +55,12 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
+//file upload
+const fileUpload = require('express-fileupload');
+
+app.use(fileUpload({
+  useTempFiles: true,
+  tempFileDir: '/tmp/'
+}));
+
 module.exports = app;
