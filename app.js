@@ -10,6 +10,7 @@ var db = require('./config/connection');
 const { log } = require('console');
 var app = express();
 var session = require('express-session')
+const fileUpload = require('express-fileupload');
 
 // view engine setup (THIS IS THE KEY)
 app.engine(
@@ -55,7 +56,7 @@ app.use(function (err, req, res, next) {
 });
 
 //file upload
-const fileUpload = require('express-fileupload');
+
 
 app.use(fileUpload({
   useTempFiles: true,
