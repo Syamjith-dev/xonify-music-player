@@ -24,26 +24,43 @@
     {{!-- album-section --}}
     <section class="album-section">
         <div class="banner"></div>
+
         {{#each songs}}
-        <div class="col-md-3 ">
+        <div class="col-md-3">
             <div class="card ms-2 mb-5 albums" style="width: 12rem;">
-                <img src="/songs-images/{{this._id}}.png" class="card-img-top" alt="product-image">
+
+                <!-- ✅ IMAGE -->
+                <img src="{{this.image}}" class="card-img-top" alt="song-image">
+
                 <div class="card-body">
                     <h6 class="card-title">{{this.Name}}</h6>
                     <p class="card-text">{{this.Artist}}</p>
+
+                    <!-- ✅ PLAY BUTTON -->
                     <a href="#" class="play-btn" data-id="{{this._id}}" data-name="{{this.Name}}"
-                        data-artist="{{this.Artist}}" onclick="playSong(this); return false;">
+                        data-artist="{{this.Artist}}" data-song="{{this.song}}" data-image="{{this.image}}"
+                        onclick="playSong(this); return false;">
                         <span class="icon">▶</span>
                     </a>
-                    <a href="/add-to-liked/{{this._id}}" class="like-btn"><img src="\icons\heart.webp"
-                            alt="like-img"></a>
 
-                    <button class="menu-btn"><img src="\icons\dots-vertical-rounded.webp" alt=""></button>
+                    <!-- ❤️ LIKE -->
+                    <a href="/add-to-liked/{{this._id}}" class="like-btn">
+                        <img src="/icons/heart.webp" alt="like-img">
+                    </a>
+
+                    <!-- MENU -->
+                    <button class="menu-btn">
+                        <img src="/icons/dots-vertical-rounded.webp" alt="">
+                    </button>
+
                 </div>
             </div>
         </div>
         {{/each}}
     </section>
+
+    <!-- 🎵 AUDIO PLAYER -->
+    <audio id="audioPlayer"></audio>
     {{!-- my-collection-section --}}
     {{#if myCollection}}
     <section class="my-collection">

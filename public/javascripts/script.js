@@ -27,23 +27,27 @@ window.playSong = function(btn){
     const id = btn.dataset.id
     const name = btn.dataset.name
     const artist = btn.dataset.artist
+    const songUrl = btn.dataset.song      // ✅ Cloudinary URL
+    const imageUrl = btn.dataset.image    // ✅ Cloudinary URL
+
     const icon = btn.querySelector(".icon")
 
     const nowPlayImg = document.querySelector(".nowPlayImg")
     const songName = document.querySelector(".songName")
     const artistName = document.querySelector(".artist")
 
-    // update right section
-    nowPlayImg.style.backgroundImage = `url('/songs-images/${id}.png')`
-    nowPlayImg.style.backgroundSize = "cover"
-    nowPlayImg.style.backgroundPosition = "center"
+    // 🎨 update image
+    if(nowPlayImg){
+        nowPlayImg.style.backgroundImage = `url('${imageUrl}')`
+        nowPlayImg.style.backgroundSize = "cover"
+        nowPlayImg.style.backgroundPosition = "center"
+    }
 
-    songName.innerText = name
-    artistName.innerText = artist
+    if(songName) songName.innerText = name
+    if(artistName) artistName.innerText = artist
 
-    // same song
+    // same song toggle
     if(audio && currentId === id){
-
         if(audio.paused){
             audio.play()
             icon.innerText="⏸"
@@ -53,11 +57,10 @@ window.playSong = function(btn){
             icon.innerText="▶"
             if(bottomIcon) bottomIcon.innerText="▶"
         }
-
         return
     }
 
-    // stop old song
+    // stop old
     if(audio){
         audio.pause()
         if(currentBtn){
@@ -65,8 +68,8 @@ window.playSong = function(btn){
         }
     }
 
-    // play new song
-    audio = new Audio(`/songs/${id}.mp3`)
+    // ▶️ PLAY NEW SONG (🔥 FIXED)
+    audio = new Audio(songUrl)
     audio.play()
 
     icon.innerText="⏸"
@@ -75,61 +78,56 @@ window.playSong = function(btn){
     currentBtn = btn
     currentId = id
 
+    // duration
     audio.addEventListener("loadedmetadata",()=>{
         if(progress) progress.max = audio.duration
         if(duration) duration.innerText = formatTime(audio.duration)
     })
 
+    // progress
     audio.addEventListener("timeupdate",()=>{
         if(progress) progress.value = audio.currentTime
         if(currentTime) currentTime.innerText = formatTime(audio.currentTime)
     })
 
+    // auto next
     audio.onended = () =>{
         nextSong()
     }
-
 }
 
 window.nextSong = function(){
-
     if(!currentBtn) return
 
-    let card = currentBtn.closest(".col-md-3") || currentBtn.closest(".song-card")
+    let card = currentBtn.closest(".col-md-3")
     let nextCard = card.nextElementSibling
 
     if(!nextCard){
-        nextCard = document.querySelector(".col-md-3") || document.querySelector(".song-card")
+        nextCard = document.querySelector(".col-md-3")
     }
 
-    const nextBtn = nextCard.querySelector(".play-btn, .play-btn-like")
-
+    const nextBtn = nextCard.querySelector(".play-btn")
     if(nextBtn) playSong(nextBtn)
-
 }
 
 window.prevSong = function(){
-
     if(!currentBtn) return
 
-    let card = currentBtn.closest(".col-md-3") || currentBtn.closest(".song-card")
+    let card = currentBtn.closest(".col-md-3")
     let prevCard = card.previousElementSibling
 
     if(!prevCard){
-        const cards = document.querySelectorAll(".col-md-3, .song-card")
+        const cards = document.querySelectorAll(".col-md-3")
         prevCard = cards[cards.length-1]
     }
 
-    const prevBtn = prevCard.querySelector(".play-btn, .play-btn-like")
-
+    const prevBtn = prevCard.querySelector(".play-btn")
     if(prevBtn) playSong(prevBtn)
-
 }
 
-// bottom play button
+// bottom play
 if(bottomPlay){
 bottomPlay.onclick = ()=>{
-
     if(!audio){
         const firstBtn = document.querySelector(".play-btn")
         if(firstBtn) playSong(firstBtn)
@@ -145,7 +143,6 @@ bottomPlay.onclick = ()=>{
         bottomIcon.innerText="▶"
         if(currentBtn) currentBtn.querySelector(".icon").innerText="▶"
     }
-
 }
 }
 
@@ -156,9 +153,7 @@ progress.oninput = function(){
         audio.currentTime = progress.value
     }
 }
+
 }
 
 })
-
-
-
