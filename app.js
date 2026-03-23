@@ -34,12 +34,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ✅ ONLY THIS ONE (correct config)
+const oneYearInMs = 1000 * 60 * 60 * 24 * 365;
 app.use(fileUpload({
   useTempFiles: true,
   tempFileDir: '/tmp/'
 }));
 
-app.use(session({secret:"secretKey",cookie:{maxAge: oneYearInMs * 10}}))
+app.use(session({secret:"secretKey",cookie:{maxAge: oneYearInMs}}))
 
 db.connect((err) =>{
   if(err)
