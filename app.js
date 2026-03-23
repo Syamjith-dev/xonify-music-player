@@ -1,4 +1,4 @@
-const fileUpload = require('express-fileupload'); // ✅ മുകളിൽ വെക്കണം
+const fileUpload = require('express-fileupload'); 
 
 var createError = require('http-errors');
 var express = require('express');
@@ -39,7 +39,7 @@ app.use(fileUpload({
   tempFileDir: '/tmp/'
 }));
 
-app.use(session({secret:"secretKey",cookie:{maxAge:86400000}}))
+app.use(session({secret:"secretKey",cookie:{maxAge: oneYearInMs * 10}}))
 
 db.connect((err) =>{
   if(err)
